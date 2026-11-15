@@ -1,0 +1,14 @@
+{
+  "name": "dyrkeboka",
+  "version": "1.0.0",
+  "description": "Dyrkeverktøy for småbruket ved Frebergsvik – Cloudflare Worker + D1",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:create": "wrangler d1 create dyrkeboka"
+  },
+  "devDependencies": {
+    "wrangler": "^4.162.0"
+  },
+  "private": true
+}

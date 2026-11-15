@@ -1,0 +1,33 @@
+# Dyrkeboka – Cloudflare Worker med statiske filer og D1-database
+name = "dyrkeboka"
+main = "src/worker.js"
+compatibility_date = "2025-10-01"
+
+# Appen (index.html, ikoner, service worker) ligger i public/
+[assets]
+directory = "./public"
+binding = "ASSETS"
+
+# Felles lagring. Uten database_id oppretter Cloudflare databasen automatisk ved første deploy
+# (også når det deployes fra Git). Har du laget den selv, kan du legge inn database_id her.
+[[d1_databases]]
+binding = "DB"
+database_name = "dyrkeboka"
+
+[vars]
+GARDEN = "tveitan"
+# Gårdens posisjon for værvarselet. Juster til nøyaktig punkt (f.eks. fra norgeskart.no).
+LAT = "59.45"
+LON = "10.42"
+ALT = "70"
+# MET krever at appen identifiserer seg med navn og kontaktinfo (nettside eller e-post).
+MET_UA = "Dyrkeboka/1.0 (+https://jortech.no)"
+# Brukes bare hvis hemmeligheten ANTHROPIC_API_KEY er satt.
+AI_MODEL = "claude-sonnet-5-5"
+
+# Eget domene (krever at jortech.no ligger som sone i Cloudflare). Fjern # når sonen er klar:
+# routes = [{ pattern = "dyrk.jortech.no", custom_domain = true }]
+
+# Hemmeligheter settes med wrangler, ikke her:
+#   npx wrangler secret put FAMILY_KEY          (familiekoden)
+#   npx wrangler secret put ANTHROPIC_API_KEY   (valgfritt – «Spør om gården»)
